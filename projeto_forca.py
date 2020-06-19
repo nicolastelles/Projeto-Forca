@@ -108,6 +108,14 @@ def ganhou(certo,palavra):
         return True
     else:
         return False
+    
+def verifica(string):
+    string = string.lower()
+    if string in alfabeto and len(string)== 1:
+        return True
+    else:
+        return False
+
 jogar = jogar_novamente()
 while(jogar):
     certas = erradas = ''
@@ -120,21 +128,26 @@ while(jogar):
         print("")
         letra = input("Digite uma letra: ")
         letra = letra.lower()
-        letras = certas+erradas
-        if letra in certas+erradas:
-            print("")
-            result = chute(letras,letra)
-        else:
-            if letra in sorteada:
-                certas = certas + letra
-                #desenha()
-                certo = desenha()
-                resp = ganhou (certo,sorteada)
-                if resp:
-                    break
+        continuar = verifica(letra)
+        if (continuar):
+            letras = certas+erradas
+            if letra in certas+erradas:
+                print("")
+                result = chute(letras,letra)
             else:
-                erradas = erradas + letra
-                desenha()
+                if letra in sorteada:
+                    certas = certas + letra
+                    #desenha()
+                    certo = desenha()
+                    resp = ganhou (certo,sorteada)
+                    if resp:
+                        break
+                else:
+                    erradas = erradas + letra
+                    desenha()
+        else:
+            print("Digite uma letra válida!")
+            
 
     if len(erradas)< 7:
         print("")
